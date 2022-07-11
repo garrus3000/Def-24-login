@@ -2,7 +2,7 @@ import express from 'express';
 import { Server as HttpServer } from 'http';
 import { Server as IOServer } from 'socket.io';
 
-import routerProducto from './src/routes/routes.js';
+import routerProducto from './src/routes/routesProductos.js';
 import ContenedorMensajes from './src/controllers/contenedorMensajes.js';
 
 import { allNormalizeProcess } from './src/controllers/normalizr.js';
@@ -38,7 +38,7 @@ app.use(
         saveUninitialized: true,
         rolling: true,
         cookie: {
-            maxAge: 20 * 1000,
+            maxAge: 60 * 1000,
         },
     })
 );

@@ -10,13 +10,9 @@ const fetchNombreforDestroy = () => {
         )
         .catch((err) => console.log(err));
 
-    setTimeout(() => {
-        window.location.href = "/login";
-    } , 2000);
+        setTimeout(() => {
+            window.location.href = "/crl";
+            }, 2000);
 };
 
 fetchNombreforDestroy();
-
-setTimeout(() => {
-window.location.href = "/login";
-}, 2000);

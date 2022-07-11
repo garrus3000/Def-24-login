@@ -21,7 +21,9 @@ routerLogin.get('/', (req, res) => {
 });
 
 routerLogin.get('/login', (req, res) => {
-    res.sendFile(login_html);
+    const nombre = req.session?.nombre;
+    if (nombre) res.redirect('/home');
+    else res.sendFile(login_html);
 });
 
 routerLogin.get('/home', (req, res) => {
@@ -62,22 +64,13 @@ routerLogin.get('/logout', async (req, res) => {
     const nombre = req.session.nombre;
     if (nombre) {
         res.sendFile(logout_html);
-        setTimeout(() => {
-            req.session.destroy();
-        }, 10000 * 9999);
     } else res.redirect("/login");
-
-            
-
-    // const nombre = req.session.nombre;
-    // if (nombre) {
-    //     req.session.destroy();
-    //     res.sendFile(logout_html);
-    //     // setTimeout(() => {
-    //     //     req.session.destroy();
-    //     // } , 2000);
-    // } else res.redirect('/login');
 });
 
+
+routerLogin.get('/crl', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
+});
 
 export default routerLogin;

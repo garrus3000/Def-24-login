@@ -111,10 +111,25 @@ const fetchNombre = () => {
 
 fetchNombre();
 
+const btnLogout = () => {
+    const logoutBtn = document.getElementById('btnLogout');
+    logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        logoutBtn.classList.add('disabled');
+        e.target.removeEventListener("click", btnLogout);
+        logoutBtn.innerHTML = `Cerrando sesión <span class="spinner-border spinner-border-sm"></span>`;
+        window.location.href = "/logout";
+    });
+
+};
+btnLogout();
+
+
 /*
     Con funcion fetNombre() en socket.on("messages")
     se renueva el tiempo de session por cada mensaje escrito
     porque hace un request a "/getNombre", que setea el Session
+    con rolling: true en server.js, pq resave no funciona bien para MongoDb
 */
 socket.on("messages",  (mensaje) => {
     renderMensajes(mensaje);
