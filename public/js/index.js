@@ -96,7 +96,28 @@ const renderCompresion = (msj) => {
 }
 
 
+// Fetch de Nombre por Session
+const fetchNombre = () => {
+    fetch("/getNombre")
+        .then((response) => response.json())
+        .then(
+            (data) =>
+                (document.getElementById(
+                    "userName"
+                ).innerHTML = `<span class="text-primary fw-semibold fs-3">${data}</span>`)
+        )
+        .catch((err) => console.log(err));
+};
+
+// fetchNombre();
+
+/*
+    Con funcion fetNombre() en socket.on("messages")
+    se renueva el tiempo de session por cada mensaje escrito
+    porque hace un request a "/getNombre", que setea el Session
+*/
 socket.on("messages",  (mensaje) => {
     renderMensajes(mensaje);
     renderCompresion(mensaje);
+    fetchNombre();
 });

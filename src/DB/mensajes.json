@@ -208,5 +208,19 @@
     },
     "text": "asdasd",
     "id_text": 15
+  },
+  {
+    "id": 16,
+    "author": {
+      "email": "asd@asdf.com",
+      "nombre": "Eduardo",
+      "apellido": "Odriozola",
+      "edad": "23",
+      "alias": "asdasdasdasdasdas",
+      "avatar": "https://pm1.narvii.com/6246/c5e30f0de9d0138046bb8c80fe0c353283fc9de1_hq.jpg",
+      "fecha": "10/7/2022, 20:28:56"
+    },
+    "text": "sdad",
+    "id_text": 16
   }
 ]

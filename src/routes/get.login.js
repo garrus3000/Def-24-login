@@ -9,74 +9,52 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-const login = path.join(__dirname, '../../public/pages/login.html');
-const index = path.join(__dirname, '../../public/pages/index.html');
+const login_html = path.join(__dirname, '../../public/pages/login.html');
+const index_html = path.join(__dirname, '../../public/pages/index.html');
 
-//render condicional para el login
-routerLogin.get("/", (req, res) => {
+//Render condicional para login.hmtl o index.html con redirect
+routerLogin.get('/', (req, res) => {
     const nombre = req.session?.nombre;
-
-    if (nombre) res.sendFile(index);
-    else res.sendFile(login);
+    if (nombre) res.redirect('/home');
+    else res.redirect('/login');
 });
 
-routerLogin.post('/login', (req, res) => {
+routerLogin.get('/login', (req, res) => {
+    res.sendFile(login_html);
+});
+
+routerLogin.get('/home', (req, res) => {
+    const nombre = req.session?.nombre;
+    if (nombre) {
+        req.session.nombre = nombre;
+        res.sendFile(index_html);
+    }
+    else res.redirect('/login');
+});
+
+/*
+    Button del login, metodo "POST", captura el "nombre" del formulario
+    y los guarda en la session
+    Redirecciona a la pagina principal "/home"
+*/
+routerLogin.post('/setNombre', (req, res) => {
     req.session.nombre = req.body.nombre;
-    res.redirect('/');
-})
-
-// routerLogin.get('/getName', (req, res) => {
-//     if (req.session.nombre) {
-//         res.send(req.session.nombre);
-//     }
-//     else {
-//         res.send('No hay nombre');
-//     }
-// })
-
-// routerLogin.get('/logout', (req, res) => {
-//     try {
-//         req.session.destroy((err) => {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 res.redirect('/logout');
-//             }
-//         })
-//     } catch (err) {
-//         console.log(err);
-//     }
-// })
-
-// routerLogin.get('/logoutMsj', (req, res) => {
-//     try {
-//         res.sendFile(__dirname + '/views/logout.html');
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// })
-
-// routerLogin.get('/', (req, res) => {
-//     const nombre = req.session?.nombre
-//     if (nombre) {
-//         res.redirect('/')
-//     } else {
-//         res.redirect('/login')
-//     }
-// })
-
-// routerLogin.get("/login", (req, res) => {
-//     res.sendFile(login);
-// });
+    res.redirect('/home');
+});
 
 
-// routerLogin.route('/login')
-//     .get((req, res) => { res.sendFile(login) })
-//     .post((req, res) => {
-//         req.session.nombre = req.body.nombre
-
-
+/*
+    Defino ruta para obtener el nombre de la session
+    Si la session esta vacia, redirecciona a la pagina de login
+    Si la session tiene un nombre guardado uso Fetch en /public/js/index.js
+*/
+routerLogin.get('/getNombre', (req, res) => {
+    if (req.session.nombre) {
+        const parseado = JSON.stringify(req.session.nombre);
+        res.send(parseado);
+    }
+    else res.redirect('/login');
+});
 
 
 
