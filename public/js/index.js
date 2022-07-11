@@ -109,7 +109,7 @@ const fetchNombre = () => {
         .catch((err) => console.log(err));
 };
 
-// fetchNombre();
+fetchNombre();
 
 /*
     Con funcion fetNombre() en socket.on("messages")

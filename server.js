@@ -12,7 +12,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
 
-import routerLogin from './src/routes/get.login.js';
+import routerLogin from './src/routes/loginAndLogout.js';
 
 const app = express();
 const httpServer = new HttpServer(app)
@@ -38,7 +38,7 @@ app.use(
         saveUninitialized: true,
         rolling: true,
         cookie: {
-            maxAge: 10 * 1000,
+            maxAge: 20 * 1000,
         },
     })
 );

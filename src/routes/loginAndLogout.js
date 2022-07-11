@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 const login_html = path.join(__dirname, '../../public/pages/login.html');
 const index_html = path.join(__dirname, '../../public/pages/index.html');
+const logout_html = path.join(__dirname, '../../public/pages/logout.html');
 
 //Render condicional para login.hmtl o index.html con redirect
 routerLogin.get('/', (req, res) => {
@@ -56,6 +57,27 @@ routerLogin.get('/getNombre', (req, res) => {
     else res.redirect('/login');
 });
 
+
+routerLogin.get('/logout', async (req, res) => {
+    const nombre = req.session.nombre;
+    if (nombre) {
+        res.sendFile(logout_html);
+        setTimeout(() => {
+            req.session.destroy();
+        }, 10000 * 9999);
+    } else res.redirect("/login");
+
+            
+
+    // const nombre = req.session.nombre;
+    // if (nombre) {
+    //     req.session.destroy();
+    //     res.sendFile(logout_html);
+    //     // setTimeout(() => {
+    //     //     req.session.destroy();
+    //     // } , 2000);
+    // } else res.redirect('/login');
+});
 
 
 export default routerLogin;
